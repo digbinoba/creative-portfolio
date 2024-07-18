@@ -32,6 +32,7 @@ export function Avatar(props) {
   const { animations: shufflingAnimation } = useFBX("animations/Shuffling.fbx");
   const { animations: situpAnimation } = useFBX("animations/Situps.fbx");
   const { animations: tauntAnimation } = useFBX("animations/Taunt.fbx");
+  const { animations: standingIdleAnimation } = useFBX("animations/Standing Idle.fbx");
 
   const { animations: flairAnimation } = useFBX("animations/Flair.fbx");
   //Change the name of the animation to make it easier to call
@@ -43,12 +44,12 @@ export function Avatar(props) {
   situpAnimation[0].name = "Situps";
   tauntAnimation[0].name = "Taunt";
   flairAnimation[0].name = "Flair";
-
+  standingIdleAnimation[0].name = "Standing Idle";
   const { actions } = useAnimations(
-    [typingAnimation[0], fallingIdleAnimation[0], flairAnimation[0]],
+    [typingAnimation[0], fallingIdleAnimation[0], flairAnimation[0], tauntAnimation[0], situpAnimation[0], bicycleCrunchAnimation[0], maleDynamicPoseAnimation[0], shufflingAnimation[0], standingIdleAnimation[0]],
     group
   );
-  const { nodes, materials } = useGraph(clone);
+  const { nodes, materials } = useGLTF("models/avatar.glb");
 
   useFrame((state) => {
     //Avatar looks at the camera
@@ -65,11 +66,11 @@ export function Avatar(props) {
   //Play the animation
   useEffect(() => {
     //Smoothly fadein the animations
-    actions[animation].reset().fadeIn(0.5).play();
+    actions[animation].reset().fadeIn(0.6).play();
 
     //Stop previous animation
     return () => {
-      actions[animation].reset().fadeOut(0.5);
+      actions[animation].reset().fadeOut(0.1);
     };
   }, [animation]);
 
@@ -81,7 +82,8 @@ export function Avatar(props) {
   }, [wireframe]);
   return (
     <group {...props} dispose={null} ref={group}>
-      <primitive object={nodes.Hips} />
+      <group>
+        <primitive object={nodes.Hips} />
       <skinnedMesh
         geometry={nodes.Wolf3D_Body.geometry}
         material={materials.Wolf3D_Body}
@@ -134,8 +136,10 @@ export function Avatar(props) {
         morphTargetDictionary={nodes.Wolf3D_Teeth.morphTargetDictionary}
         morphTargetInfluences={nodes.Wolf3D_Teeth.morphTargetInfluences}
       />
+      </group>
+      
     </group>
   );
 }
 
-useGLTF.preload("/668c4091f174a74779558a36.glb");
+useGLTF.preload("models/avatar.glb");
