@@ -1,10 +1,16 @@
+import { motion } from 'framer-motion'
 const Section = (props) => {
     const { children } = props
 
     return (
-        <section className={`h-screen w-screen p-8 max-w-screen-2xl mx-auto flex flex-col items-start justify-center`}>
+        <motion.section className={`h-screen w-screen p-8 max-w-screen-2xl mx-auto flex flex-col items-start justify-center`} whileInView={{
+            opacity: 1, y: 0, transition: {
+                duration: 1,
+                delay: 0.6
+            }
+        }} initial={{ opacity: 0, y: 50, }}>
             {children}
-        </section>
+        </motion.section>
     )
 }
 export const Interface = () => {
@@ -58,14 +64,38 @@ const AboutSection = () => {
                 <span className="bg-white px-1 italic">Delano Igbinoba</span>
             </h1>
 
-            <p className="text-lg text-gray-600 mt-4">
-                I make cool immersive experiences to enable creatives
+            <motion.p
+                className="text-lg text-gray-600 mt-4"
+                initial={{
+                    opacity: 0,
+                    y: 25,
+                }}
+                whileInView={{
+                    opacity: 1,
+                    y: 0,
+                }}
+                transition={{
+                    duration: 1,
+                    delay: 1.5,
+                }}
+            >                I make cool immersive experiences to enable creatives
                 <br />
                 to bring their ideas into reality!
-            </p>
+            </motion.p>
 
-            <button className={`bg-indigo-600 text-white py-4 px-8 
-      rounded-lg font-bold text-lg mt-16`}>Contact me!</button>
+            <motion.button className={`bg-indigo-600 text-white py-4 px-8 
+      rounded-lg font-bold text-lg mt-16`} initial={{
+                    opacity: 0,
+                    y: 25,
+                }}
+                whileInView={{
+                    opacity: 1,
+                    y: 0,
+                }}
+                transition={{
+                    duration: 1,
+                    delay: 2.5,
+                }}>Contact me!</motion.button>
         </Section>
     )
 
@@ -74,23 +104,35 @@ const AboutSection = () => {
 const SkillsSection = () => {
     return (
         <Section>
-            <div>
+            <motion.div whileInView={"visible"}>
                 <h2 className="text-5xl font-bold">Skills</h2>
                 <div className="mt-8 space-y-4">
                     {/* Loop through all skiils and put in a progress bar */}
                     {skills.map((skill, index) => (
                         <div className="w-64" key={index}>
-                            <h3
-                                className="text-xl font-bold text-gray-800">
+                            <motion.h3
+                                className="text-xl font-bold text-gray-800"
+                                initial={{
+                                    opacity: 0,
+                                }}
+                                variants={{
+                                    visible: {
+                                        opacity: 1,
+                                        transition: {
+                                            duration: 1,
+                                            delay: 1 + index * 0.2,
+                                        },
+                                    },
+                                }}>
                                 {skill.title}
-                            </h3>
+                            </motion.h3>
                             <div className="h-2 w-full bg-gray-200 rounded-full mt-2">
                                 <div className="h-full bg-indigo-500 rounded-full" style={{ width: `${skill.level}%` }} />
                             </div>
                         </div>
                     ))}
                 </div>
-            </div>
+            </motion.div>
         </Section>
     )
 }
