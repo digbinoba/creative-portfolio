@@ -4,15 +4,15 @@ Command: npx gltfjsx@6.4.1 public/models/scene.gltf
 */
 
 import React, { useEffect } from "react";
-import { useGLTF, useTexture } from "@react-three/drei";
+import { useGLTF, useTexture, useVideoTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { motion } from "framer-motion-3d";
 import { animate, useMotionValue } from "framer-motion";
 import { useFrame } from "@react-three/fiber";
 
 export function Office(props) {
-  const { nodes, materials } = useGLTF("models/scene.gltf");
-
+  const { nodes, materials } = useGLTF("models/scene1.gltf");
+  const textureVSCode = useVideoTexture("textures/vscode.mp4");
   //Mark a group with a section so we can scale the group when user scrolls
   const { section } = props;
   const texture = useTexture("textures/baked.jpg");
@@ -33,18 +33,25 @@ export function Office(props) {
   const glassTextureOpacity = useMotionValue(0);
 
   useEffect(() => {
-    animate(textureOpacity, section === 0 ? 1 : 0)
-    animate(glassTextureOpacity, section === 0 ? 0.42 : 0)
-
-  }, [section])
+    animate(textureOpacity, section === 0 ? 1 : 0);
+    animate(glassTextureOpacity, section === 0 ? 0.42 : 0);
+  }, [section]);
 
   useFrame(() => {
     //Smoothly change the opacity
     textureMaterial.opacity = textureOpacity.get();
     textureGlassMaterial.opacity = glassTextureOpacity.get();
-  })
+  });
   return (
     <group {...props} dispose={null}>
+      <mesh
+        name="Screen"
+        geometry={nodes.Screen.geometry}
+        position={[0.454, 0.939, -1.723]}
+        rotation={[Math.PI, -1.099, Math.PI]}
+      >
+        <meshBasicMaterial map={textureVSCode} toneMapped={false} />
+      </mesh>
       <group
         name="Desk"
         position={[-0.074, 0, -1.521]}
@@ -191,11 +198,11 @@ export function Office(props) {
         position={[0.454, 0.939, -1.723]}
         rotation={[Math.PI, -1.099, Math.PI]}
       >
-        <mesh
+        {/* <mesh
           name="iMac_1"
           geometry={nodes.iMac_1.geometry}
           material={textureMaterial}
-        />
+        /> */}
         <mesh
           name="iMac_1_1"
           geometry={nodes.iMac_1_1.geometry}
@@ -329,4 +336,4 @@ export function Office(props) {
   );
 }
 
-useGLTF.preload("models/scene.gltf");
+useGLTF.preload("models/scene1.gltf");

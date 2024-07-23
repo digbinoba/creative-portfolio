@@ -93,27 +93,32 @@ export function Avatar(props) {
       <group>
         <primitive object={nodes.Hips} />
         <skinnedMesh
+          frustumCulled={false}
           geometry={nodes.Wolf3D_Body.geometry}
           material={materials.Wolf3D_Body}
           skeleton={nodes.Wolf3D_Body.skeleton}
         />
         <skinnedMesh
+          frustumCulled={false}
           geometry={nodes.Wolf3D_Outfit_Bottom.geometry}
           material={materials.Wolf3D_Outfit_Bottom}
           skeleton={nodes.Wolf3D_Outfit_Bottom.skeleton}
         />
         <skinnedMesh
+          frustumCulled={false}
           geometry={nodes.Wolf3D_Outfit_Footwear.geometry}
           material={materials.Wolf3D_Outfit_Footwear}
           skeleton={nodes.Wolf3D_Outfit_Footwear.skeleton}
         />
         <skinnedMesh
+          frustumCulled={false}
           geometry={nodes.Wolf3D_Outfit_Top.geometry}
           material={materials.Wolf3D_Outfit_Top}
           skeleton={nodes.Wolf3D_Outfit_Top.skeleton}
         />
         <skinnedMesh
           name="EyeLeft"
+          frustumCulled={false}
           geometry={nodes.EyeLeft.geometry}
           material={materials.Wolf3D_Eye}
           skeleton={nodes.EyeLeft.skeleton}
@@ -122,6 +127,7 @@ export function Avatar(props) {
         />
         <skinnedMesh
           name="EyeRight"
+          frustumCulled={false}
           geometry={nodes.EyeRight.geometry}
           material={materials.Wolf3D_Eye}
           skeleton={nodes.EyeRight.skeleton}
@@ -130,6 +136,7 @@ export function Avatar(props) {
         />
         <skinnedMesh
           name="Wolf3D_Head"
+          frustumCulled={false}
           geometry={nodes.Wolf3D_Head.geometry}
           material={materials.Wolf3D_Skin}
           skeleton={nodes.Wolf3D_Head.skeleton}
@@ -137,6 +144,7 @@ export function Avatar(props) {
           morphTargetInfluences={nodes.Wolf3D_Head.morphTargetInfluences}
         />
         <skinnedMesh
+          frustumCulled={false}
           name="Wolf3D_Teeth"
           geometry={nodes.Wolf3D_Teeth.geometry}
           material={materials.Wolf3D_Teeth}
