@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { useAtom } from "jotai";
 import { currentProjectAtom, projects } from "./Projects";
 const Section = (props) => {
-  const { children } = props;
+  const { children, mobileTop } = props;
 
   return (
     <motion.section
-      className={`h-screen w-screen p-8 max-w-screen-2xl mx-auto flex flex-col items-start justify-center`}
+      className={`h-screen w-screen p-8 max-w-screen-2xl mx-auto flex flex-col items-start ${mobileTop ? "justify-start md:justify-center" : " justify-center"}`}
       whileInView={{
         opacity: 1,
         y: 0,
@@ -62,8 +62,8 @@ const skills = [
 const AboutSection = (props) => {
   const { setSection } = props;
   return (
-    <Section>
-      <h1 className="text-6xl font-extrabold leading-snug">
+    <Section mobileTop>
+      <h1 className="text-4xl md:text-6xl font-extrabold leading-snug mt-8 md:mt-0">
         Hi, I'm
         <br />
         <span className="bg-white px-1 italic">Delano Igbinoba</span>
@@ -92,7 +92,7 @@ const AboutSection = (props) => {
 
       <motion.button
         className={`bg-indigo-600 text-white py-4 px-8 
-      rounded-lg font-bold text-lg mt-16`}
+      rounded-lg font-bold text-lg mt-4 md:mt-16`}
         onClick={() => setSection(3)}
         initial={{
           opacity: 0,
@@ -116,14 +116,14 @@ const AboutSection = (props) => {
 const SkillsSection = () => {
   return (
     <Section>
-      <motion.div whileInView={"visible"}>
-        <h2 className="text-5xl font-bold text-white">Skills</h2>
+      <motion.div whileInView={"visible"} className="w-full">
+        <h2 className="text-3xl md:text-5xl font-bold text-white">Skills</h2>
         <div className="mt-8 space-y-4">
           {/* Loop through all skiils and put in a progress bar */}
           {skills.map((skill, index) => (
-            <div className="w-64" key={index}>
+            <div className="w-full md:w-64" key={index}>
               <motion.h3
-                className="text-xl font-bold text-gray-100"
+                className="text-lg md:text-xl font-bold text-gray-100"
                 initial={{
                   opacity: 0,
                 }}
@@ -156,8 +156,8 @@ const SkillsSection = () => {
 const ContactSection = () => {
   return (
     <Section>
-      <h2 className="text-5xl font-bold">Contact me</h2>
-      <div className="mt-8 p-8 rounded-md bg-white w-96 max-w-full">
+      <h2 className="text-3xl md:text-5xl font-bold">Contact me</h2>
+      <div className="mt-8 p-8 rounded-md bg-white bg-opacity-50 w-96 max-w-full">
         <form>
           <label for="name" className="font-medium text-gray-900 block mb-1">
             Name
@@ -217,7 +217,7 @@ const ProjectSection = () => {
         >
           ← Previous
         </button>
-        <h2 className="text-5xl font-bold">Projects</h2>
+        <h2 className="text-3xl md:text-5xl font-bold">Projects</h2>
         <button
           className="hover:text-indigo-600 transition-colors"
           onClick={nextProject}

@@ -5,19 +5,18 @@ Command: npx gltfjsx@6.4.1 public/models/668c4091f174a74779558a36.glb
 
 import React, { useEffect, useRef } from "react";
 import { useFrame, useGraph } from "@react-three/fiber";
-import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
+import { useAnimations, useFBX, useGLTF, useTexture } from "@react-three/drei";
 import { SkeletonUtils } from "three-stdlib";
 import { useControls } from "leva";
 import * as THREE from "three";
 export function Avatar(props) {
-  const { animation } = props;
+  const { animation, wireframe } = props;
   const group = useRef();
   const { scene } = useGLTF("models/avatar.glb");
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
-  const { headFollow, cursorFollow, wireframe } = useControls({
+  const { headFollow, cursorFollow } = useControls({
     headFollow: false,
     cursorFollow: false,
-    wireframe: false,
   });
   const { animations: typingAnimation } = useFBX("animations/Typing.fbx");
   const { animations: bicycleCrunchAnimation } = useFBX(
@@ -158,3 +157,6 @@ export function Avatar(props) {
 }
 
 useGLTF.preload("models/avatar.glb");
+useTexture.preload("animations/Typing.fbx");
+useTexture.preload("animations/Male Dynamic Pose.fbx");
+useTexture.preload("animations/Flair.fbx");

@@ -1,9 +1,10 @@
-import { Image, Text } from "@react-three/drei";
+import { Float, Image, Text } from "@react-three/drei";
 import { useThree, useFrame } from "@react-three/fiber";
 import { motion } from "framer-motion-3d";
 import { animate, useMotionValue } from "framer-motion";
 import { atom, useAtom } from "jotai";
 import { useEffect, useRef } from "react";
+
 export const projects = [
   {
     title: "Wawatmos",
@@ -50,38 +51,40 @@ const Project = (props) => {
   });
   return (
     <group {...props}>
-      <mesh
-        position-z={-0.001}
-        onClick={() => window.open(project.url + "_blank")}
-        ref={background}
-      >
-        <planeGeometry args={[2.2, 2]} />
-        <meshBasicMaterial color="black" transparent opacity={0.4} />
-      </mesh>
-      <Image
-        scale={[2, 1.2, 1]}
-        url={project.image}
-        toneMapped={false}
-        position-y={0.3}
-      />
-      <Text
-        maxWidth={2}
-        anchorX={"left"}
-        anchorY={"top"}
-        fontSize={0.2}
-        position={[-1, -0.4, 0]}
-      >
-        {project.title.toUpperCase()}
-      </Text>
-      <Text
-        maxWidth={2}
-        anchorX="left"
-        anchorY="top"
-        fontSize={0.1}
-        position={[-1, -0.6, 0]}
-      >
-        {project.description}
-      </Text>
+      <Float speed={2} floatIntensity={5}>
+        <mesh
+          position-z={-0.001}
+          onClick={() => window.open(project.url + "_blank")}
+          ref={background}
+        >
+          <planeGeometry args={[2.2, 2]} />
+          <meshBasicMaterial color="black" transparent opacity={0.4} />
+        </mesh>
+        <Image
+          scale={[2, 1.2, 1]}
+          url={project.image}
+          toneMapped={false}
+          position-y={0.3}
+        />
+        <Text
+          maxWidth={2}
+          anchorX={"left"}
+          anchorY={"top"}
+          fontSize={0.2}
+          position={[-1, -0.4, 0]}
+        >
+          {project.title.toUpperCase()}
+        </Text>
+        <Text
+          maxWidth={2}
+          anchorX="left"
+          anchorY="top"
+          fontSize={0.1}
+          position={[-1, -0.6, 0]}
+        >
+          {project.description}
+        </Text>
+      </Float>
     </group>
   );
 };
@@ -92,17 +95,18 @@ export const Projects = () => {
   return (
     <group position-y={-viewport.height * 2 + 1}>
       {projects.map((project, index) => (
-        <motion.group key={"project_" + index} position={[index * 2.5, 0, -3]} animate={{
-          x: 0 + (index - currentProject) * 2.5,
-          y: currentProject === index ? 0 : -0.1,
-          z: currentProject === index ? -2 : -3,
-          rotateX: currentProject === index ? 0 : -Math.PI / 3,
-          rotateZ: currentProject === index ? 0 : -0.1 * Math.PI,
-        }}>
-          <Project
-            project={project}
-            highlighted={index === currentProject}
-          />
+        <motion.group
+          key={"project_" + index}
+          position={[index * 2.5, 0, -3]}
+          animate={{
+            x: 0 + (index - currentProject) * 2.5,
+            y: currentProject === index ? 0 : -0.1,
+            z: currentProject === index ? -2 : -3,
+            rotateX: currentProject === index ? 0 : -Math.PI / 3,
+            rotateZ: currentProject === index ? 0 : -0.1 * Math.PI,
+          }}
+        >
+          <Project project={project} highlighted={index === currentProject} />
         </motion.group>
       ))}
     </group>
